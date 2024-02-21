@@ -39,7 +39,7 @@ export function App() {
   const { data: tagsResponse, isLoading, isFetching } = useQuery<TagResponse>({
     queryKey: ['get-tags', urlFilter, page],
     queryFn: async () => {
-      const response = await fetch(`http://localhost:5500/tags?_page=${page}&_per_page=10&title=${urlFilter}`)
+      const response = await fetch(`http://localhost:5173/tags?_page=${page}&_per_page=10&title=${urlFilter}`)
       const data = await response.json()
 
       return data
