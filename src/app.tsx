@@ -9,7 +9,7 @@ import { useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useSearchParams } from 'react-router-dom'
 import { FormEvent, useState } from 'react'
 import * as Dialog from '@radix-ui/react-dialog';
-import { CreateTagForm } from './components/creat-tag-form'
+import { CreateTagForm } from './components/create-tag-form'
 
 export interface TagResponse {
   first: number
@@ -31,7 +31,7 @@ export interface Tag {
 export function App() {
   const [searchParams, setSearchParams] = useSearchParams()
   const urlFilter = searchParams.get('filter') ?? ''
-
+  
   const [filter, setFilter] = useState(urlFilter)
 
   const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1
@@ -39,7 +39,7 @@ export function App() {
   const { data: tagsResponse, isLoading, isFetching } = useQuery<TagResponse>({
     queryKey: ['get-tags', urlFilter, page],
     queryFn: async () => {
-      const response = await fetch(`http://localhost:5173/tags?_page=${page}&_per_page=10&title=${urlFilter}`)
+      const response = await fetch(`http://localhost:3333/tags?_page=${page}&_per_page=10&title=${urlFilter}`)
       const data = await response.json()
 
       return data
@@ -104,8 +104,8 @@ export function App() {
           <form onSubmit={handleFilter} className="flex items-center gap-2">
             <Input variant='filter'>
               <Search className="size-3" />
-              <Control
-                placeholder="Search tags..."
+              <Control 
+                placeholder="Search tags..." 
                 onChange={e => setFilter(e.target.value)}
                 value={filter}
               />
