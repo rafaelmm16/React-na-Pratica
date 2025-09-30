@@ -11,5 +11,8 @@ pnpm i
 
 ```bash
 $ pnpm run dev
-	ou
+```
+e
+```bash
 $ pnpm run server
+```
