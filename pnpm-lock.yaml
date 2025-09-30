@@ -17,6 +17,9 @@ importers:
       '@radix-ui/react-select':
         specifier: 2.2.6
         version: 2.2.6(@types/react-dom@19.1.9(@types/react@19.1.16))(@types/react@19.1.16)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@tailwindcss/vite':
+        specifier: ^4.1.13
+        version: 4.1.13(vite@7.1.7(jiti@2.6.0)(lightningcss@1.30.1))
       '@tanstack/react-query':
         specifier: 5.90.2
         version: 5.90.2(react@19.1.1)
@@ -71,7 +74,7 @@ importers:
         version: 8.45.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@vitejs/plugin-react':
         specifier: ^5.0.4
-        version: 5.0.4(vite@7.1.7(jiti@2.6.0)(lightningcss@1.30.1)(yaml@2.8.1))
+        version: 5.0.4(vite@7.1.7(jiti@2.6.0)(lightningcss@1.30.1))
       autoprefixer:
         specifier: 10.4.21
         version: 10.4.21(postcss@8.5.6)
@@ -98,7 +101,7 @@ importers:
         version: 5.9.2
       vite:
         specifier: ^7.1.7
-        version: 7.1.7(jiti@2.6.0)(lightningcss@1.30.1)(yaml@2.8.1)
+        version: 7.1.7(jiti@2.6.0)(lightningcss@1.30.1)
 
 packages:
 
@@ -939,6 +942,11 @@ packages:
 
   '@tailwindcss/postcss@4.1.13':
     resolution: {integrity: sha512-HLgx6YSFKJT7rJqh9oJs/TkBFhxuMOfUKSBEPYwV+t78POOBsdQ7crhZLzwcH3T0UyUuOzU/GK5pk5eKr3wCiQ==}
+
+  '@tailwindcss/vite@4.1.13':
+    resolution: {integrity: sha512-0PmqLQ010N58SbMTJ7BVJ4I2xopiQn/5i6nlb4JmxzQf8zcS5+m2Cv6tqh+sfDwtIdjoEnOvwsGQ1hkUi8QEHQ==}
+    peerDependencies:
+      vite: ^5.2.0 || ^6 || ^7
 
   '@tanstack/query-core@5.90.2':
     resolution: {integrity: sha512-k/TcR3YalnzibscALLwxeiLUub6jN5EDLwKDiO7q5f4ICEoptJ+n9+7vcEFy5/x/i6Q+Lb/tXrsKCggf5uQJXQ==}
@@ -1994,11 +2002,6 @@ packages:
     resolution: {integrity: sha512-YgvUTfwqyc7UXVMrB+SImsVYSmTS8X/tSrtdNZMImM+n7+QTriRXyXim0mBrTXNeqzVF0KWGgHPeiyViFFrNDw==}
     engines: {node: '>=18'}
 
-  yaml@2.8.1:
-    resolution: {integrity: sha512-lcYcMxX2PO9XMGvAJkJ3OsNMw+/7FKes7/hgerGUYWIoWu5j/+YQqcZr5JnPZWzOsEBgMbSbiSTn/dv/69Mkpw==}
-    engines: {node: '>= 14.6'}
-    hasBin: true
-
   yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
@@ -2708,6 +2711,13 @@ snapshots:
       postcss: 8.5.6
       tailwindcss: 4.1.13
 
+  '@tailwindcss/vite@4.1.13(vite@7.1.7(jiti@2.6.0)(lightningcss@1.30.1))':
+    dependencies:
+      '@tailwindcss/node': 4.1.13
+      '@tailwindcss/oxide': 4.1.13
+      tailwindcss: 4.1.13
+      vite: 7.1.7(jiti@2.6.0)(lightningcss@1.30.1)
+
   '@tanstack/query-core@5.90.2': {}
 
   '@tanstack/react-query@5.90.2(react@19.1.1)':
@@ -2921,7 +2931,7 @@ snapshots:
       '@typescript-eslint/types': 8.45.0
       eslint-visitor-keys: 4.2.1
 
-  '@vitejs/plugin-react@5.0.4(vite@7.1.7(jiti@2.6.0)(lightningcss@1.30.1)(yaml@2.8.1))':
+  '@vitejs/plugin-react@5.0.4(vite@7.1.7(jiti@2.6.0)(lightningcss@1.30.1))':
     dependencies:
       '@babel/core': 7.28.4
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.4)
@@ -2929,7 +2939,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.38
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
-      vite: 7.1.7(jiti@2.6.0)(lightningcss@1.30.1)(yaml@2.8.1)
+      vite: 7.1.7(jiti@2.6.0)(lightningcss@1.30.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -3678,7 +3688,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.16
 
-  vite@7.1.7(jiti@2.6.0)(lightningcss@1.30.1)(yaml@2.8.1):
+  vite@7.1.7(jiti@2.6.0)(lightningcss@1.30.1):
     dependencies:
       esbuild: 0.25.10
       fdir: 6.5.0(picomatch@4.0.3)
@@ -3690,7 +3700,6 @@ snapshots:
       fsevents: 2.3.3
       jiti: 2.6.0
       lightningcss: 1.30.1
-      yaml: 2.8.1
 
   which@2.0.2:
     dependencies:
@@ -3701,9 +3710,6 @@ snapshots:
   yallist@3.1.1: {}
 
   yallist@5.0.0: {}
-
-  yaml@2.8.1:
-    optional: true
 
   yocto-queue@0.1.0: {}
 
