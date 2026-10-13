@@ -40,20 +40,59 @@ export function App() {
   const { data: tagsResponse, isLoading, isFetching, isError, refetch } = useQuery<TagResponse>({
     queryKey: ['get-tags', urlFilter, page],
     queryFn: async () => {
-      const url = new URL('http://localhost:3333/tags')
-      url.searchParams.set('_page', String(page))
-      url.searchParams.set('_per_page', '10')
+      try {
+        const url = new URL('http://localhost:3333/tags')
+        url.searchParams.set('_page', String(page))
+        url.searchParams.set('_per_page', '10')
+        if (urlFilter) {
+          url.searchParams.set('title', urlFilter)
+        }
+
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 1200)
+
+        const response = await fetch(url.toString(), { signal: controller.signal })
+        clearTimeout(timeoutId)
+
+        if (response.ok) {
+          return await response.json()
+        }
+      } catch {
+        // Fallback gracioso para GitHub Pages ou quando a API local estiver indisponível
+      }
+
+      // Carrega server.json estático (para produção/GitHub Pages)
+      const staticResponse = await fetch(`${import.meta.env.BASE_URL}server.json`)
+      if (!staticResponse.ok) {
+        throw new Error('Falha ao carregar tags.')
+      }
+
+      const staticData: { tags: Tag[] } = await staticResponse.json()
+      let filtered = staticData.tags || []
+
       if (urlFilter) {
-        url.searchParams.set('title', urlFilter)
+        const query = urlFilter.toLowerCase()
+        filtered = filtered.filter(t =>
+          (t.title || '').toLowerCase().includes(query) ||
+          (t.slug || '').toLowerCase().includes(query)
+        )
       }
 
-      const response = await fetch(url.toString())
-      if (!response.ok) {
-        throw new Error('Falha ao carregar tags do servidor.')
-      }
+      const perPage = 10
+      const totalItems = filtered.length
+      const totalPages = Math.ceil(totalItems / perPage) || 1
+      const startIndex = (page - 1) * perPage
+      const pageData = filtered.slice(startIndex, startIndex + perPage)
 
-      const data = await response.json()
-      return data
+      return {
+        first: 1,
+        prev: page > 1 ? page - 1 : null,
+        next: page < totalPages ? page + 1 : page,
+        last: totalPages,
+        pages: totalPages,
+        items: totalItems,
+        data: pageData,
+      }
     },
     placeholderData: keepPreviousData,
   })
